@@ -37,6 +37,8 @@ Pour exécuter Mini-Jeux sur votre machine, suivez ces étapes :
    ```bash
    python main.py
    ```
+## Avis personnel
+Ce projet constitue une petite application conçue pour m'entraîner et me familiariser avec Python, en vue de développer d'autres projets dans ce langage (pas nécessairement des jeux). Il offre de nombreuses opportunités d'amélioration, qu'il s'agisse de l'esthétique, de la structure des jeux ou même de l'architecture globale de l'application. Ce projet servira de base pour des améliorations futures, une fois que j'aurai acquis davantage d'expérience. En attendant, cela remplis sont rôle en tant que projet d'entraînement.
 
 ## Auteurs
   [OIILury](https://github.com/OIILury)
