@@ -5,7 +5,6 @@ Mini-Jeux est une application ludique qui propose une petite variété de jeux i
 
 ## Image d'aperçu
 ![Aperçu de Mini-Jeux](assets/PageJeu.png)
-![Aperçu de Mini-Jeux](assets/MachineSou.png)
 
 ## Contexte et Objectif
 - **Contexte :** Projet personnel visant à créer une plateforme de jeux.
