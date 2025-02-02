@@ -1,5 +1,5 @@
 # Mini-Jeux
-![IconApplication](assets/goofyCat.png)
+![IconApplication](assets/goofyCat.ico)
 ## Description
 Mini-Jeux est une application ludique qui propose une petite variété de jeux interactifss. Ce projet a été réalisé dans le cadre d'un projet personnel pour explorer le développement de jeux en Python.
 
