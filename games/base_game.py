@@ -23,28 +23,44 @@ class BaseGame(ABC):
         self.parent = parent
         self.setup_styles()
         
-        # Frame principal
-        self.main_frame = ttk.Frame(parent, style='Game.TFrame')
-        self.main_frame.pack(expand=True, fill='both', padx=20, pady=20)
+        # Configuration de la fenêtre de jeu
+        self.parent.resizable(True, True)  # Permet le redimensionnement
+        self.parent.geometry("800x600")    # Taille par défaut plus petite
         
-        # Titre du jeu
+        # Configurer la fenêtre parent pour qu'elle s'étende
+        self.parent.grid_rowconfigure(0, weight=1)
+        self.parent.grid_columnconfigure(0, weight=1)
+        
+        # Frame principal avec une marge plus petite
+        self.main_frame = ttk.Frame(parent, style='Game.TFrame')
+        self.main_frame.grid(row=0, column=0, sticky='nsew', padx=10, pady=10)  # Marges réduites
+        
+        # Configurer main_frame pour qu'il s'étende
+        self.main_frame.grid_rowconfigure(2, weight=1)  # game_frame row
+        self.main_frame.grid_columnconfigure(0, weight=1)
+        
+        # Titre du jeu avec une police plus petite
         self.title_label = ttk.Label(
             self.main_frame,
             text=self._name,
             style='GameTitle.TLabel'
         )
-        self.title_label.pack(pady=(0, 20))
+        self.title_label.grid(row=0, column=0, pady=(0, 10))  # Padding réduit
         
         # Zone de score
         self.score_frame = ttk.Frame(self.main_frame, style='Game.TFrame')
-        self.score_frame.pack(fill='x', pady=(0, 10))
+        self.score_frame.grid(row=1, column=0, sticky='ew', pady=(0, 10))
         
+        # Configurer score_frame pour qu'il s'étende
+        self.score_frame.grid_columnconfigure(0, weight=1)
+        self.score_frame.grid_columnconfigure(1, weight=1)
+
         self.score_label = ttk.Label(
             self.score_frame,
             text=f"Score: {self.current_score}",
             style='GameScore.TLabel'
         )
-        self.score_label.pack(side='left', padx=5)
+        self.score_label.grid(row=0, column=0, sticky='w', padx=5)
         
         # Meilleur score
         high_score = self.score_manager.get_high_score(self.game_id)
@@ -57,23 +73,26 @@ class BaseGame(ABC):
                 text=high_score_text,
                 style='GameHighScore.TLabel'
             )
-            self.high_score_label.pack(side='right', padx=5)
+            self.high_score_label.grid(row=0, column=1, sticky='e', padx=5)
         
         # Zone de jeu
         self.game_frame = ttk.Frame(self.main_frame, style='Game.TFrame')
-        self.game_frame.pack(expand=True, fill='both', pady=10)
+        self.game_frame.grid(row=2, column=0, sticky='nsew', pady=10)
         
         # Boutons de contrôle
         self.control_frame = ttk.Frame(self.main_frame, style='Game.TFrame')
-        self.control_frame.pack(fill='x', pady=(10, 0))
+        self.control_frame.grid(row=3, column=0, sticky='ew', pady=(10, 0))
         
+        # Configurer control_frame pour qu'il s'étende
+        self.control_frame.grid_columnconfigure(0, weight=1)
+
         self.quit_button = ttk.Button(
             self.control_frame,
             text="Quitter",
             style='Game.TButton',
             command=self.quit_game
         )
-        self.quit_button.pack(side='right', padx=5)
+        self.quit_button.grid(row=0, column=0, sticky='e', padx=5)
         
         # Initialisation du jeu spécifique
         self.init_game(self.game_frame)
@@ -88,26 +107,26 @@ class BaseGame(ABC):
             background=self.game_colors['bg_primary']
         )
         
-        # Style pour le titre
+        # Style pour le titre avec une taille de police réduite
         style.configure(
             'GameTitle.TLabel',
-            font=('Helvetica', 24, 'bold'),
+            font=('Helvetica', 20, 'bold'),  # Taille réduite de 24 à 20
             foreground=self.game_colors['text_primary'],
             background=self.game_colors['bg_primary']
         )
         
-        # Style pour le score
+        # Style pour le score avec une taille de police réduite
         style.configure(
             'GameScore.TLabel',
-            font=('Helvetica', 14),
+            font=('Helvetica', 12),  # Taille réduite de 14 à 12
             foreground=self.game_colors['text_primary'],
             background=self.game_colors['bg_primary']
         )
         
-        # Style pour le meilleur score
+        # Style pour le meilleur score avec une taille de police réduite
         style.configure(
             'GameHighScore.TLabel',
-            font=('Helvetica', 14),
+            font=('Helvetica', 12),  # Taille réduite de 14 à 12
             foreground=self.game_colors['accent'],
             background=self.game_colors['bg_primary']
         )
