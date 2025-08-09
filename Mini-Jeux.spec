@@ -10,7 +10,6 @@ a = Analysis(
         ('assets/*', 'assets'),
         ('utils/*', 'utils'),
         ('games/*', 'games'),
-        ('scores/*', 'scores'),
     ],
     hiddenimports=[],
     hookspath=[],

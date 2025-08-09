@@ -21,7 +21,7 @@ def build_exe():
 
     # Utilisez le fichier spec
     PyInstaller.__main__.run([
-        'GameCollection.spec',
+        'Mini-Jeux.spec',
         '--clean',
         '--noconfirm',
     ])

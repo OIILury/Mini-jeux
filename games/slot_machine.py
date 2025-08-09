@@ -1,16 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
 import random
-import json
-from pathlib import Path
 from games.base_game import BaseGame
 import time
 
 class SlotMachineGame(BaseGame):
     def __init__(self):
         super().__init__("Machine à Sous", "slot_machine")
-        self.scores_file = Path("scores/slot_machine_scores.json")
-        self.scores_file.parent.mkdir(exist_ok=True)
+        # Suppression de la gestion individuelle des scores - utilise ScoreManager
         
         # Liste des émojis possibles avec leurs couleurs
         self.symbols = ["🍒", "🍊", "🍋", "🍇", "💎", "7️⃣"]
@@ -64,7 +61,6 @@ class SlotMachineGame(BaseGame):
         self.is_spinning = False
         self.max_credits = 1000  # Pour suivre le maximum de crédits atteints
 
-        self.load_scores()
         self.reset()
 
     @property
@@ -219,36 +215,4 @@ class SlotMachineGame(BaseGame):
         """Wrapper pour la fonction after de tkinter"""
         self.parent.after(ms, func)
 
-    def load_scores(self):
-        """Charge les meilleurs scores"""
-        self.high_scores = []
-        if self.scores_file.exists():
-            with open(self.scores_file, 'r') as f:
-                self.high_scores = json.load(f)
-
-    def save_score(self):
-        """Sauvegarde le score actuel"""
-        self.high_scores.append(self.credits)
-        self.high_scores.sort(reverse=True)
-        self.high_scores = self.high_scores[:5]  # Garde les 5 meilleurs scores
-        
-        with open(self.scores_file, 'w') as f:
-            json.dump(self.high_scores, f)
-
-    def update_scores_display(self):
-        """Met à jour l'affichage des meilleurs scores"""
-        for widget in self.scores_frame.winfo_children():
-            widget.destroy()
-
-        ttk.Label(
-            self.scores_frame,
-            text="🏆 High Scores 🏆",
-            font=('Helvetica', 10, 'bold')
-        ).pack()
-
-        for i, score in enumerate(self.high_scores[:5], 1):
-            ttk.Label(
-                self.scores_frame,
-                text=f"{i}. {score} crédits",
-                font=('Helvetica', 10)
-            ).pack() 
+    # Suppression des méthodes de gestion individuelle des scores - utilise ScoreManager centralisé 

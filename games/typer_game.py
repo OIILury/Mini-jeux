@@ -2,8 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 import random
 import time
-import json
-from pathlib import Path
 from games.base_game import BaseGame
 import os
 import sys
@@ -18,9 +16,7 @@ class TyperGame(BaseGame):
         self.words_typed = 0
         self.max_words = 20
         self.current_mode = "normal"  # Mode par défaut
-        self.scores_file = Path("scores/typer_game_scores.json")
-        self.scores_file.parent.mkdir(exist_ok=True)
-        self.load_scores()
+        # Suppression de la gestion individuelle des scores - utilise ScoreManager
         self.reset()
 
     @property
@@ -177,15 +173,15 @@ class TyperGame(BaseGame):
             widget.destroy()
         self.init_game(self.parent)
 
-    def load_scores(self):
-        """Charge les meilleurs scores"""
-        self.high_scores = {'timer': [], 'lives': []}
-        if self.scores_file.exists():
-            with open(self.scores_file, 'r') as f:
-                self.high_scores = json.load(f)
+    def get_current_wpm(self):
+        """Calcule le WPM actuel"""
+        if self.start_time is None or self.words_typed == 0:
+            return 0
+        elapsed_time = time.time() - self.start_time
+        return int((self.words_typed / elapsed_time) * 60)
 
     def save_score(self):
-        """Sauvegarde le score actuel"""
+        """Sauvegarde le score actuel avec ScoreManager centralisé"""
         try:
             player_name = f"Joueur (WPM: {self.get_current_wpm()})"
             super().save_score(player_name)
@@ -195,31 +191,3 @@ class TyperGame(BaseGame):
                 "Erreur",
                 "Impossible de sauvegarder le score. Veuillez réessayer."
             )
-
-    def get_current_wpm(self):
-        """Calcule le WPM actuel"""
-        if self.start_time is None or self.words_typed == 0:
-            return 0
-        elapsed_time = time.time() - self.start_time
-        return int((self.words_typed / elapsed_time) * 60)
-
-    def update_scores_display(self):
-        """Met à jour l'affichage des meilleurs scores"""
-        for widget in self.scores_frame.winfo_children():
-            widget.destroy()
-
-        timer_frame = ttk.Frame(self.scores_frame)
-        timer_frame.pack(side='left', expand=True, padx=10)
-        ttk.Label(timer_frame, text="🕒 Mode Timer", font=('Helvetica', 10, 'bold')).pack(pady=(0,5))
-        
-        for i, score in enumerate(self.high_scores['timer'][:5], 1):
-            ttk.Label(timer_frame, text=f"{i}. {score} points", font=('Helvetica', 10)).pack(pady=1)
-
-        ttk.Separator(self.scores_frame, orient='vertical').pack(side='left', fill='y', padx=10)
-
-        lives_frame = ttk.Frame(self.scores_frame)
-        lives_frame.pack(side='left', expand=True, padx=10)
-        ttk.Label(lives_frame, text="❤️ Mode Vies", font=('Helvetica', 10, 'bold')).pack(pady=(0,5))
-        
-        for i, score in enumerate(self.high_scores['lives'][:5], 1):
-            ttk.Label(lives_frame, text=f"{i}. {score} points", font=('Helvetica', 10)).pack(pady=1)

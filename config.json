@@ -1,0 +1,57 @@
+{
+  "theme": "sunset_orange",
+  "language": "fr",
+  "window_size": {
+    "width": 1000,
+    "height": 700
+  },
+  "fullscreen": false,
+  "sound_enabled": true,
+  "animations_enabled": true,
+  "auto_save": true,
+  "difficulty": "normal",
+  "game_settings": {
+    "number_guess": {
+      "max_attempts": 10,
+      "number_range": [
+        1,
+        100
+      ]
+    },
+    "mental_calc": {
+      "timer_mode_duration": 60,
+      "lives_mode_lives": 3,
+      "difficulty_levels": [
+        "easy",
+        "normal",
+        "hard"
+      ]
+    },
+    "slot_machine": {
+      "starting_credits": 100,
+      "min_bet": 1,
+      "max_bet": 50
+    },
+    "typer_game": {
+      "words_per_round": 20,
+      "timer_mode_duration": 60,
+      "lives_mode_lives": 3
+    },
+    "virtual_pet": {
+      "auto_save_interval": 30,
+      "max_pets": 5
+    }
+  },
+  "ui_settings": {
+    "show_animations": true,
+    "show_tooltips": true,
+    "compact_mode": false,
+    "high_contrast": false
+  },
+  "performance": {
+    "enable_logging": true,
+    "log_level": "INFO",
+    "memory_optimization": true,
+    "cache_enabled": true
+  }
+}

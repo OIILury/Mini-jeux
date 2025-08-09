@@ -553,7 +553,7 @@ class VirtualPetGame(BaseGame):
         self.pets = []
         self.pet_frames = {}
         self.items = []
-        self.save_file = Path("scores/virtual_pets.json")
+        self.save_file = Path("virtual_pets.json")
         self.save_file.parent.mkdir(exist_ok=True)
         self.selected_pet = None
         self.spawn_timer = None

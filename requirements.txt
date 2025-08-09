@@ -1,0 +1,14 @@
+# Dépendances principales
+tkinter  # Inclus avec Python standard
+matplotlib>=3.5.0
+numpy>=1.21.0
+
+# Dépendances pour les tests
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Dépendances pour le packaging
+pyinstaller>=5.0.0
+
+# Dépendances optionnelles pour les fonctionnalités avancées
+pillow>=9.0.0  # Pour le traitement d'images
